@@ -1,0 +1,63 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// $custom-primary-palette: (
+//     100: #FFE0B2,
+//     200: #FFCC80,
+//     300: #FFB74D,
+//     400: #FFA726,
+//     500: #FF9800,
+//     600: #FB8C00,
+//     700: #F57C00,
+//     800: #EF6C00,
+//     900: #E65100,
+//     contrast: (
+//       50: #0000,
+//       100: #000,
+//       200: #000,
+//       300: #ffff,
+//       400: #ffff,
+//       500: #ffff,
+//       600: #ffff,
+//       700: #ffff,
+//     ),
+// );
+
+$custom-primary-palette: (
+  900: #4cae4f,
+  800: #4cae4f,
+  700: #4cae4f,
+  600: #4cae4f,
+  500: #4cae4f,
+  400: #4cae4f,
+  300: #4cae4f,
+  200: #4cae4f,
+  100: #4cae4f,
+  contrast: (
+    50: #ffffff, // Contraste claro
+    100: #000000, // Contraste oscuro
+    200: #ffffff,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+  ),
+);
+
+$custom-primary: mat.m2-define-palette($custom-primary-palette);
+$custom-accent: mat.m2-define-palette($custom-primary-palette);
+
+$custom-theme: mat.m2-define-light-theme((
+ color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+  ),
+  typography: mat.m2-define-typography-config(),
+  density: 0,
+));
+
+
+
+@include mat.all-component-themes($custom-theme);

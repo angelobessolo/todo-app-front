@@ -1,0 +1,45 @@
+.menu-button {
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes moveButton {
+  from {bottom: 0; opacity: 1; visibility: hidden;}
+  to {bottom: var(--bottom-position); oopacity: 1; visibility: visible;}
+}
+
+@keyframes moveLabel {
+  from {bottom: 0; opacity: 1; visibility: hidden;}
+  to {bottom: var(--bottom-label-position); opacity: 1; visibility: visible;}
+}
+
+.action-button {
+  position: absolute;
+  right: 0;
+  visibility: hidden; /* Inicialmente oculto */
+  transition-property: opacity visibility;
+  animation: moveButton 0.5s forwards;
+}
+
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 3.5rem;
+  left: auto;
+  height: 30px;
+  width: 130px;
+  line-height: 25px;
+  min-height: 25px;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: white;
+  background-color: #4cae4f;
+  border-radius: 5px;
+  visibility: hidden; /* Inicialmente oculto */
+  animation: moveLabel 0.5s forwards;
+}

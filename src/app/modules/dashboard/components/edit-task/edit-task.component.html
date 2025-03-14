@@ -1,0 +1,77 @@
+<div style="max-height: 90vh; max-width: 750px; min-width: 300px;">
+    <button class="close-button"  color="primary" mat-icon-button (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <div class="m-4">
+        
+        <div class="d-flex align-items-center mb-3 gap-2 w-100">
+            <mat-icon>task</mat-icon>
+            <h6 class="m-0" style="font-size: 18px;">Editar Tarea</h6>
+        </div>
+
+        <form [formGroup]="createTaskForm">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Titulo</mat-label>
+                        <mat-icon matPrefix>draw</mat-icon>
+                        <input matInput type="text" formControlName="title">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Descripción</mat-label>
+                        <mat-icon matPrefix>draw</mat-icon>
+                        <textarea matInput type="text" formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="status">
+                          @for (status of statusList; track $index) {
+                            <mat-option [value]="status">
+                                {{ status }}
+                              </mat-option>
+                          }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field #formFieldRef appearance="outline" class="w-100">
+                        <mat-label>Fecha creación</mat-label>
+                        <input matInput [matDatepicker]="pickerExpeditionDate" formControlName="createAt" readonly>
+                        <mat-hint>DD/MM/AAAA</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerExpeditionDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerExpeditionDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field #formFieldRef appearance="outline" class="w-100">
+                        <mat-label>Fecha actualización</mat-label>
+                        <input matInput [matDatepicker]="pickerExpeditionDate" formControlName="updateAt" readonly>
+                        <mat-hint>DD/MM/AAAA</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerExpeditionDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerExpeditionDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+
+        <mat-dialog-actions>
+            <div class="d-flex justify-content-end gap-2">
+              <button mat-button (click)="closeDialog()" color="primary">
+                Cancelar
+              </button>
+              <button mat-button [disabled]="createTaskForm.invalid" (click)="updateTask()">
+                Guardar
+              </button>
+            </div>
+        </mat-dialog-actions>
+    </div>
+</div>

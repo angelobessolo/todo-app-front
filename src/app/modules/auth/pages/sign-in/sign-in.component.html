@@ -1,0 +1,137 @@
+<!-- Login -->
+<div class="login">
+  
+  <div class="flip-container">
+    <div class="flipper" [class.flipped]="flipped">
+    
+      <div class="login front">
+        <div class="col-lx-6 col-lg-6 col-md-10 col-sm-10" style="display: flex; flex-direction: column;
+        justify-content: center; 
+        align-items: center; 
+        padding: 10px; 
+        z-index: 1000; 
+        border-radius: 24px; 
+        background-color: white;
+        -webkit-box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62); 
+        -moz-box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62); 
+        box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62);
+        backdrop-filter: blur(6px);
+        width: 500px;
+        height: 620px;
+        ">
+          <form [formGroup]="loginForm" class="col-lx-8 col-lg-10 col-md-10 col-sm-12 mb-3" style="height: 85%;">
+            <div class="d-flex flex-column justify-content-center align-items-center gap-3" style="width: 100%;">
+              <img src="assets/images/smart-talent-image.png" alt="Investment Icon" style="width: 125px; height: 125px;">
+            </div>
+
+            <div class="col-lx-12 col-lg-12 col-md-12 col-sm-12" style="display: flex; flex-direction: column; height: auto; gap: 10px; max-width: 500px;">
+              <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
+                <mat-label>Usuario / Email</mat-label>
+                <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email')">
+                <mat-icon matSuffix color="primary">person</mat-icon>
+                <mat-error *ngIf="loginForm.controls['email'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
+                <mat-label>Contraseña</mat-label>
+                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="password" (blur)="updateErrorMessage('password')">
+                <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.controls['password'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <button mat-button style="font-size: 16px; -webkit-box-shadow: 5px 7px 12px 2px rgba(0,0,0,0.54); -moz-box-shadow: 5px 7px 12px 2px rgba(0,0,0,0.54); box-shadow: 5px 7px 12px 2px rgba(0,0,0,0.54);" (click)="flipCard()">
+              ¿Olvidaste tu contraseña?
+            </button>
+            
+          </form>
+
+          <div class="row">
+            <div class="d-flex gap-3">
+              <button mat-flat-button [disabled]="!loginForm.valid" [ngStyle]="{ 'background-color': !loginForm.valid ? '#ffffff42' : '#090944'}" color="primary" style="color: white;" (click)="submitForm()">Iniciar</button>
+              
+              <button mat-flat-button [disabled]="!loginForm.valid" [ngStyle]="{ 'background-color': !loginForm.valid ? '#ffffff42' : '#090944'}" color="primary" style="color: white;" (click)="flipCard()">Registrarse</button>
+              </div>
+          </div>
+
+        </div>
+      </div>
+ 
+      <div class="signup back">
+        <div class="col-lx-6 col-lg-6 col-md-10 col-sm-10" style="display: flex; flex-direction: column; justify-content: center; align-items: center;
+          padding: 10px; z-index: 1000; border-radius: 24px; background-color: white; -webkit-box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62);
+          -moz-box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62); box-shadow: 4px 2px 13px 4px rgba(0, 0, 0, 0.62);  backdrop-filter: blur(6px);
+          max-width: 500px; width: 500px; height: 620px;">
+          
+          <form [formGroup]="signupForm" class="col-lx-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="padding: 20px !important; height: 85%;">
+            <div class="d-flex flex-column justify-content-center align-items-center gap-3" style="width: 100%;">
+              <img src="assets/images/smart-talent-image.png" alt="Investment Icon" style="width: 125px; height: 125px;">
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
+                <mat-label>Email</mat-label>
+                <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email1')">
+                <mat-icon matSuffix color="primary">mail</mat-icon>
+                <mat-error *ngIf="signupForm.controls['email'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
+                <mat-label>Nombre de Usuario</mat-label>
+                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="userName" (blur)="updateErrorMessage('password1')">
+                <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>person</mat-icon>
+                </button>
+                <!-- <mat-error *ngIf="signupForm.controls['changePassword'].invalid" style="color: white;">{{errorMessage}}</mat-error> -->
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
+                <mat-label>Contraseña</mat-label>
+                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="password" (blur)="updateErrorMessage('password1')">
+                <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <!-- <mat-error *ngIf="signupForm.controls['confirmPassword'].invalid" style="color: white;">{{errorMessage}}</mat-error> -->
+              </mat-form-field>
+            </div>
+          </form>
+
+          <div class="row">
+            <div class="d-flex gap-3">
+              <button color="primary" style="color: white; background-color: #090944;" mat-button (click)="flipCard()">Regresar</button>
+              <button [disabled]="!signupForm.valid" [ngStyle]="{ 'background-color': !signupForm.valid ? '#ffffff42' : '#090944', 'color': signupForm.valid ? 'white' : 'black', }" color="primary" style="color: white;" mat-button (click)="signUpSubmitForm()">Guardar</button>  
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loader -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#ffff" type = "ball-climbing-dot" [fullScreen] = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

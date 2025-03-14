@@ -1,0 +1,121 @@
+@if (tasks.length > 0) {
+    <div>
+        <div class="col-12">
+            <div class="d-flex justify-content-end gap-2 mb-1">
+                <button mat-icon-button matTooltip="Crear Nueva Tarea" [matTooltipPosition]="'above'" matTooltipHideDelay="100" color="primary" (click)="openCreateTask()">
+                    <mat-icon>add</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Recargar Lista" [matTooltipPosition]="'above'" matTooltipHideDelay="100" style="color: white;" (click)="reloadList()">
+                    <mat-icon>sync</mat-icon>
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-lx-9 col-lg-9 col-md-8 col-sm-12 mb-2">
+                    <mat-form-field>
+                        <mat-label>Filtrar</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-lx-3 col-lg-3 col-md-4 col-sm-12 mb-2">
+                    <mat-form-field>
+                        <mat-label>Estado</mat-label>
+                        <mat-select (selectionChange)="filterByStatus($event.value)">
+                          @for (status of statusList; track $index) {
+                            <mat-option [value]="status">
+                                {{ status }}
+                              </mat-option>
+                          }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        
+            <!-- <div style="max-height: 300px; overflow: auto;"> -->
+            <div style="width: 100%; overflow-x: auto; max-height: 320px; scrollbar-width: thin;">
+                                
+                <table mat-table [dataSource]="dataSource" matSort class="fixed-table">
+        
+                    <!-- Generar columnas dinámicamente -->
+                    @for (column of displayedColumns; track $index) {
+                        <ng-container [matColumnDef]="column">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header  class="fixed-column"> {{ column }} </th>
+                            <td mat-cell *matCellDef="let element" class="fixed-column"> 
+                                <ng-container> {{ getColumnValue(element, column) | truncate }}</ng-container>
+                            </td>
+                        </ng-container>
+                    }
+                  
+                    <!-- Header row -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <!-- Data rows -->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="raw" style="cursor: pointer;"  [ngClass]="{'selected-raw': row.selectedRow }" (click)="selectedRowList(row)"></tr>
+                    
+                   
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-start">
+                <mat-paginator 
+                    [pageSizeOptions]="[5, 10, 25, 100]" 
+                    showFirstLastButtons
+                    aria-label="Resgistros por pagina"
+                    style="width: 100%;"
+                    >
+                </mat-paginator>
+            </div>
+        </div>
+    </div> 
+   
+} @else {
+    <div class="alert alert-warning d-flex justify-content-between  mt-3">
+        <div class="d-flex justify-content-between w-100">
+            @if (!loadService) {
+                <div class="align-content-center">
+                    Realizando consulta listado de tareas!
+                </div>
+               
+                <div class="loader1">
+                    <img src="assets\icons\bouncing-circles.svg" alt="" style="width: 50px;">
+                </div>
+
+            }@else if (loadService && tasks.length === 0){  
+                <div class="align-content-center">
+                    No se han encontrado registros!
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button mat-icon-button matTooltip="Crear Nueva Tarea" [matTooltipPosition]="'above'" matTooltipHideDelay="100" color="primary" (click)="openCreateTask()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+    
+                    <button mat-icon-button matTooltip="Recargar Lista" [matTooltipPosition]="'above'" matTooltipHideDelay="100" style="color: white;" (click)="reloadList()">
+                        <mat-icon>sync</mat-icon>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if(showButton){
+    <app-float-button [buttonActions]="buttonActions" (eventAction) ="eventAction($event)"></app-float-button>
+}
+
+<!-- Loader -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.6)" size = "medium" color = "#ffff" type = "ball-climbing-dot" [fullScreen] = "true">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner> 
+
+
+
+
+
+
+
+
+  
+  
+  

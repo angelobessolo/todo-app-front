@@ -1,0 +1,7 @@
+.close-button{
+    float: right;
+}
+
+.mat-mdc-dialog-actions{
+    justify-content: flex-end !important;
+}

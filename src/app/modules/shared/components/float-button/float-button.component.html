@@ -1,0 +1,43 @@
+<div style="position: fixed; right: 3rem; bottom: 2.5rem;">
+    <div>
+        <button mat-icon-button 
+            color="primary" 
+            class="menu-button" 
+            [class.mat-elevation-z2]="!isOver" 
+            [class.mat-elevation-z8]="isOver" 
+            (mouseover)="isOver = true" 
+            (mouseleave)="isOver = false" 
+            style="background-color: #ffffff;" 
+            (click)="clickMenu()"
+        >
+            <mat-icon >{{buttonActions.icon}}</mat-icon>
+        </button>
+
+        
+        @if(openMenu){
+            @if(buttonActions.label != ''){
+                <span mat-raised-button class="label" [style.background-color]= "buttonActions.color">
+                    {{buttonActions.label}}
+                </span>
+            }
+        }
+    </div>
+
+    @if(openMenu){
+        <div class="d-flex flex-column">
+            @for (subActions of buttonActions.subActions; track $index) {
+                <div>
+                    <button mat-mini-fab class="action-button" color="primary" [ngStyle]="getButtonStyles($index)" (click)="emitAction(subActions)">
+                        <mat-icon>{{subActions.icon}}</mat-icon>
+                    </button>
+                    
+                    @if(openMenu){
+                        <span mat-raised-button class="label" [style.background-color]= "subActions.color" [ngStyle]="getLabelStyles($index)">
+                            {{subActions.label}}
+                        </span>
+                    }
+                </div>
+            }
+        </div>    
+    }
+</div>
