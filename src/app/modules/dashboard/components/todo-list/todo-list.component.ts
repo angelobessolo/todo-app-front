@@ -98,6 +98,7 @@ export class TodoListComponent {
     }, 500);
   }
 
+  // Aplica filtros
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -107,6 +108,7 @@ export class TodoListComponent {
     }
   }
 
+  // Aplica filtros por estados del select
   public filterByStatus(value: any){
     if (value === 'Todos') {
       // Si el valor es 'todos', quitar el filtro
@@ -122,12 +124,14 @@ export class TodoListComponent {
     }
   }
 
+  // Obtiene valor de la fila vs la columna
   public getColumnValue(element: DocumentData, column: string): any {
     const valore = element[this.columnMappings[column] as keyof DocumentData] || ''
     
     return valore;
   }
 
+  // Selecciona valores de la lista ó elimina selección
   public selectedRowList(raw: any){
     raw.selectedRow = ! raw.selectedRow;
 
@@ -197,6 +201,7 @@ export class TodoListComponent {
     }
   }
 
+  // Recibe click del boton y ejecuta acción
   public eventAction(event: any){
     
     switch (event.action){
@@ -219,6 +224,7 @@ export class TodoListComponent {
     }
   }
 
+  // Crea tarea
   public openCreateTask(){
     const dialogRef = this.dialog.open(CreateTaskComponent,{
       disableClose: true,
@@ -241,6 +247,7 @@ export class TodoListComponent {
     });
   }
 
+  // Actualiza tarea
   public openUpdateTask(){
     const dialogRef = this.dialog.open(EditTaskComponent,{
       data: this.rowTasks,
@@ -264,6 +271,7 @@ export class TodoListComponent {
     });
   }
 
+  // Visualiza tarea
   public openViewTask(){
     const dialogRef = this.dialog.open(ViewTaskComponent,{
       data: this.rowTasks,

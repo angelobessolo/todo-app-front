@@ -26,31 +26,10 @@ width: 25%;
 }
 
 .fixed-column {
-    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-    overflow: hidden; /* Oculta el desbordamiento */
-    text-overflow: ellipsis; /* Agrega "..." si el texto es demasiado largo */
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
-
-.negative-value {
-    color: red; /* Color para valores negativos */
-}
-
-.positive-value {
-    color: green; /* Color para valores positivos */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .loader {
     --d:22px;
