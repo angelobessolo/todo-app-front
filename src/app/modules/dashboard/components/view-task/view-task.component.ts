@@ -9,9 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { TaskService } from '../../services/task.service';
-import { ToastrAlertService } from '../../../shared/services/toastr-alert/toastr-alert.service';
 import { MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
@@ -28,7 +25,6 @@ import { MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepi
     MatSelectModule,
     MatNativeDateModule,
     MatDialogActions,
-    NgxSpinnerModule, 
     MatSlideToggleModule,
     MatDatepickerModule,
   ],
@@ -36,10 +32,6 @@ import { MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepi
   styleUrl: './view-task.component.css'
 })
 export class ViewTaskComponent {
-  private taskService = inject(TaskService);
-  private spinner     = inject(NgxSpinnerService);
-  private toastr      = inject(ToastrAlertService);
-  
   @ViewChildren('formFieldRef') formFieldRefs: QueryList<MatFormField> | undefined;
 
   private formBuilder = inject(FormBuilder);
