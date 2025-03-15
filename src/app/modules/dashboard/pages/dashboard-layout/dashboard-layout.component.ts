@@ -34,6 +34,7 @@ export class DashboardLayoutComponent implements OnInit{
   public generalStatus = GeneralStatus;
 
   constructor() {}
+  
   ngOnInit(): void {
     this.userParams = localStorage.getItem('userParams');
     if (this.userParams) {
@@ -42,14 +43,14 @@ export class DashboardLayoutComponent implements OnInit{
     }
   }
 
-
+  // Cerrar sesión
   public logout(){
     this.spinner.show();
     setTimeout(() => { 
       this.authService.logout().subscribe({
         next: (response) => {
           this.spinner.hide();
-          // Levanta alerta de error al usuario
+          // Levanta alerta al usuario
           this.toastr.showSucces('Finalizar Sesión', 'Sesión Finalizada Exitosamente');
           this.router.navigateByUrl('/auth');
         },
