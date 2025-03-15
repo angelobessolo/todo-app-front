@@ -88,13 +88,13 @@ export class SignInComponent {
     this.errorMessage = '';
     switch (fieldName){
       case 'email':  
-        // if (control.touched && control.hasError('required') && fieldValue == '') {
-        //   this.errorMessage = `Campo debe ser diligenciado`;
-        // } else if (control.touched && control.hasError('pattern')) {
-        //   this.errorMessage = 'Campo no cumple con el patron, debe tener una estructura: example@example.example';
-        // } else {
-        //   this.errorMessage = '';
-        // }
+        if (control.touched && control.hasError('required') && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
+        } else if (control.touched && control.hasError('pattern')) {
+          this.errorMessage = 'Campo no cumple con el patron, debe tener una estructura: example@example.example';
+        } else {
+          this.errorMessage = '';
+        }
       break;
 
       case 'password':  
@@ -103,6 +103,14 @@ export class SignInComponent {
         } else if (control.touched  && fieldValue.length < 8) {
           this.errorMessage = 'Longitud de contraseña debe ser mayor a 8 caracteres';
           control.setErrors({ invalid: true }); // Marcar el campo como inválido
+        } else {
+          this.errorMessage = '';
+        }
+      break;
+
+      case 'userName':  
+        if (control.touched && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
         } else {
           this.errorMessage = '';
         }

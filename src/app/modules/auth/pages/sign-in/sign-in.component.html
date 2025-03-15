@@ -38,7 +38,7 @@
                 <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="loginForm.controls['password'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+                <mat-error *ngIf="loginForm.controls['password'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -46,9 +46,9 @@
 
           <div class="row">
             <div class="d-flex gap-3">
-              <button mat-flat-button [disabled]="!loginForm.valid" [ngStyle]="{ 'background-color': !loginForm.valid ? '#ffffff42' : '#090944'}" color="primary" style="color: white;" (click)="submitForm()">Iniciar</button>
+              <button mat-flat-button [disabled]="!loginForm.valid" [ngStyle]="{ 'background-color': !loginForm.valid ? '#090944d4' : '#090944'}" color="primary" style="color: white;" (click)="submitForm()">Iniciar</button>
               
-              <button mat-flat-button [disabled]="!loginForm.valid" [ngStyle]="{ 'background-color': !loginForm.valid ? '#ffffff42' : '#090944'}" color="primary" style="color: white;" (click)="flipCard()">Registrarse</button>
+              <button mat-flat-button [ngStyle]="{ 'background-color': !loginForm.valid ? '#090944' : '#090944'}" color="primary" style="color: white;" (click)="flipCard()">Registrarse</button>
               </div>
           </div>
 
@@ -71,16 +71,16 @@
                 <mat-label>Email</mat-label>
                 <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email1')">
                 <mat-icon matSuffix color="primary">mail</mat-icon>
-                <mat-error *ngIf="signupForm.controls['email'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+                <mat-error *ngIf="signupForm.controls['email'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
                 <mat-label>Nombre de Usuario</mat-label>
-                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="userName" (blur)="updateErrorMessage('password1')">
+                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="userName" (blur)="updateErrorMessage('userName')">
                 <button mat-icon-button matSuffix color="primary" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>person</mat-icon>
                 </button>
-                <!-- <mat-error *ngIf="signupForm.controls['changePassword'].invalid" style="color: white;">{{errorMessage}}</mat-error> -->
+                <mat-error *ngIf="signupForm.controls['userName'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
@@ -89,7 +89,7 @@
                 <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <!-- <mat-error *ngIf="signupForm.controls['confirmPassword'].invalid" style="color: white;">{{errorMessage}}</mat-error> -->
+                <mat-error *ngIf="signupForm.controls['password'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
             </div>
           </form>
