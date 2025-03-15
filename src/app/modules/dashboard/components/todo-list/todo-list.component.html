@@ -1,40 +1,42 @@
 <!-- Table -->
 @if (tasks.length > 0) {
-    <div>
-        <div class="col-12">
-            <div class="d-flex justify-content-end gap-2 mb-1">
-                <button mat-icon-button matTooltip="Crear Nueva Tarea" [matTooltipPosition]="'above'" matTooltipHideDelay="100" color="primary" (click)="openCreateTask()">
-                    <mat-icon>add</mat-icon>
-                </button>
-
-                <button mat-icon-button matTooltip="Recargar Lista" [matTooltipPosition]="'above'" matTooltipHideDelay="100" style="color: white;" (click)="reloadList()">
-                    <mat-icon>sync</mat-icon>
-                </button>
-            </div>
-
-            <div class="row">
-                <div class="col-lx-9 col-lg-9 col-md-8 col-sm-12 mb-2">
-                    <mat-form-field>
-                        <mat-label>Filtrar</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-                    </mat-form-field>
+    <div class="d-flex justify-content-center">
+        <div class="col-10">
+           <div style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap-reverse;">
+                <div class="row">
+                    <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <mat-form-field>
+                            <mat-label>Filtro General por Texto</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+                        </mat-form-field>
+                    </div>
+        
+                    <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <mat-form-field>
+                            <mat-label>Filtrar Estado</mat-label>
+                            <mat-select (selectionChange)="filterByStatus($event.value)">
+                            @for (status of statusList; track $index) {
+                                <mat-option [value]="status">
+                                    {{ status }}
+                                </mat-option>
+                            }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
-    
-                <div class="col-lx-3 col-lg-3 col-md-4 col-sm-12 mb-2">
-                    <mat-form-field>
-                        <mat-label>Filtrar Estado</mat-label>
-                        <mat-select (selectionChange)="filterByStatus($event.value)">
-                          @for (status of statusList; track $index) {
-                            <mat-option [value]="status">
-                                {{ status }}
-                              </mat-option>
-                          }
-                        </mat-select>
-                    </mat-form-field>
+
+                <div class="d-flex justify-content-end gap-2 mb-1">
+                    <button mat-icon-button matTooltip="Crear Nueva Tarea" [matTooltipPosition]="'above'" matTooltipHideDelay="100" color="primary" (click)="openCreateTask()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Recargar Lista" [matTooltipPosition]="'above'" matTooltipHideDelay="100" style="color: white;" (click)="reloadList()">
+                        <mat-icon>sync</mat-icon>
+                    </button>
                 </div>
-            </div>
+           </div>
             
-            <div class="row">
+            <div>
                 <div style="width: 100%; overflow-x: auto; max-height: 320px; scrollbar-width: thin; padding-left: 0px">
                                     
                     <table mat-table [dataSource]="dataSource" matSort class="fixed-table">

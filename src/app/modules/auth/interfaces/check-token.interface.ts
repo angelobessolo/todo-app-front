@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "./login-response.interface";
 
 export interface CheckToken {
     user:       User;
@@ -6,4 +6,4 @@ export interface CheckToken {
 }
 
 
-
+ 
