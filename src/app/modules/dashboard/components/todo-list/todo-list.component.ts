@@ -67,23 +67,17 @@ export class TodoListComponent {
 
   public buttonActions: FloatButton = {};
   public statusList: string[] = ['Pendiente', 'Completado','Todos'];
-
   public rowTasks: any[] = [];
   public successAlert: string = 'Eliminación Tarea';
-  // Tables and pagination with angular material
-  dataSource = new MatTableDataSource<any>([]);
+  public dataSource = new MatTableDataSource<any>([]);
   public tasks: Task[] = [];
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort!: MatSort;
-
-  // Flag load service responsibles
   public loadService: boolean = false;
-
-  // Flag to show float-button component
   public showButton: boolean = false;
-
   public userParams: any;
   public generalStatus = GeneralStatus;
+  public titleShowAlert: string = '';
 
   constructor(public dialog: MatDialog) {}
 
@@ -95,8 +89,6 @@ export class TodoListComponent {
     }
 
     this.getAllTasks();
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
@@ -256,7 +248,8 @@ export class TodoListComponent {
     });
     const appRoot = document.querySelector('app-root');
     if (appRoot) {
-      appRoot.classList.add('blur-background'); // Añadir clase al app-root
+      // Añadir clase al app-root
+      appRoot.classList.add('blur-background'); 
     }
 
     dialogRef.afterClosed().subscribe(result => {
@@ -264,7 +257,8 @@ export class TodoListComponent {
         this.reloadList();
       }
       if (appRoot) {
-        appRoot.classList.remove('blur-background'); // Quitar clase del app-root
+        // Quitar clase del app-root
+        appRoot.classList.remove('blur-background'); 
       }
       
     });
@@ -277,7 +271,8 @@ export class TodoListComponent {
     });
     const appRoot = document.querySelector('app-root');
     if (appRoot) {
-      appRoot.classList.add('blur-background'); // Añadir clase al app-root
+      // Añadir clase al app-root
+      appRoot.classList.add('blur-background'); 
     }
 
     dialogRef.afterClosed().subscribe(result => {
@@ -285,13 +280,14 @@ export class TodoListComponent {
         this.reloadList();
       }
       if (appRoot) {
-        appRoot.classList.remove('blur-background'); // Quitar clase del app-root
+        // Quitar clase del app-root
+        appRoot.classList.remove('blur-background'); 
       }
       
     });
   }
 
-  // Inicializa variables y consumo para la tabla
+  // Inicializa variables y recarga tabla
   public reloadList(): void{
     this.dataSource.data = [];
     this.tasks = [];
@@ -302,6 +298,7 @@ export class TodoListComponent {
     this.getAllTasks();
   }
 
+  // Elimina tareas seleccionadas
   public deleteTaks(){
     const appRoot = document.querySelector('app-root');
     if (appRoot) {
@@ -352,10 +349,9 @@ export class TodoListComponent {
     }, 
     500
     );
-    
-      
   }
 
+  // Obtiene todas las tareas para el usuario logueado
   public getAllTasks(){
     setTimeout(() =>{
       this.taskService.getTasks(this.userParams.user.id).subscribe({
@@ -373,8 +369,6 @@ export class TodoListComponent {
           })); 
       
           this.dataSource.data = data;
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort; 
 
           // Después de un tiempo, reiniciar el paginator y sort
           setTimeout(() => {
@@ -391,8 +385,7 @@ export class TodoListComponent {
             // Asignar nuevamente el paginator y el sort a la dataSource
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-          }, 500);  // Esperar 500ms para asegurar que la vista se haya actualizado
-       
+          }, 500);
           
           this.loadService = true;
           
@@ -406,6 +399,7 @@ export class TodoListComponent {
     }, 500);
   }
   
+  // Cambia estado de la tarea
   public changeStatus(rowTasks: any[]): void{
     this.spinner.show();
     setTimeout(() =>{
@@ -423,20 +417,20 @@ export class TodoListComponent {
             this.spinner.hide();
 
             if (response.statusCode === 200) {
-              const title = 'Cambio Estado Tarea';
+              this.titleShowAlert = 'Cambio Estado Tarea';
               const message = response.message;
-              this.toastr.showSucces(title, message);
+              this.toastr.showSucces(this.titleShowAlert, message);
             }
             
           },
           error: err => {
             this.spinner.hide();
 
-            const title = 'Cambio Estado Estudiante';
+            this.titleShowAlert = 'Cambio Estado Estudiante';
             const message = err.error.message;
   
             message.forEach((element: any) => {
-              this.toastr.showError(title, element);
+              this.toastr.showError(this.titleShowAlert, element);
             });
           }
         })
@@ -444,5 +438,4 @@ export class TodoListComponent {
       this.reloadList();
     }, 500);
   }
-
 }
