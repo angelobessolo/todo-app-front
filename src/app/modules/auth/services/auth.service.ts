@@ -2,13 +2,11 @@ import { computed, Inject, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthStatus } from '../interfaces/auth-status.enum';
-import { User } from '../interfaces/user';
 import { DOCUMENT } from '@angular/common';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { CheckToken } from '../interfaces/check-token.interface';
-import { LoginResponse } from '../interfaces/login-response.interface';
+import { LoginResponse, User } from '../interfaces/login-response.interface';
 import { Router } from '@angular/router';
-import { SignUp } from '../interfaces/sign-up.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +19,8 @@ export class AuthService {
   private _currentUser = signal<User|null>(null);
   private _authStatus = signal<AuthStatus>( AuthStatus.checking );
 
-
   public currenUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
-
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     const localStorage = document.defaultView?.localStorage;
@@ -33,8 +29,9 @@ export class AuthService {
       this.checkAuthStatus().subscribe();
     }
   }
- 
-  checkAuthStatus(): Observable<boolean> {
+
+  // Valida statu de autenticación
+  public checkAuthStatus(): Observable<boolean> {
     const url = `${this.baseUrl}/auth/check-token`;
     const token = localStorage.getItem('token');
 
@@ -57,7 +54,8 @@ export class AuthService {
       )
   }
 
-  login(email: string, password: string): Observable<boolean>{
+  // Inicio de sesión
+  public login(email: string, password: string): Observable<boolean>{
     const url = `${this.baseUrl}/auth/signIn`;
     const body = {email, password};
 
@@ -74,7 +72,6 @@ export class AuthService {
           return true;
         }),
           
-
         // Return Errors
         catchError( err =>{
           return throwError(() => err);
@@ -83,7 +80,8 @@ export class AuthService {
       );
   }
 
-  signUp(signupForm: any): Observable<any>{
+  // Registro de usuario
+  public signUp(signupForm: any): Observable<any>{
     const url = `${this.baseUrl}/auth`;
    
     const data = {
@@ -106,6 +104,7 @@ export class AuthService {
       );
   }
 
+  // Setea autenticación
   private setAuthentication(user: User, token: string): boolean{
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
@@ -114,7 +113,8 @@ export class AuthService {
     return true
   }
 
-  logout(): Observable<boolean> {
+  // Cierra sesión
+  public logout(): Observable<boolean> {
     localStorage.removeItem('token');
     this._currentUser.set(null);
     this._authStatus.set( AuthStatus.notAuthenticated );
