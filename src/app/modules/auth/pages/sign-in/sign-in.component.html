@@ -76,8 +76,8 @@
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
                 <mat-label>Nombre de Usuario</mat-label>
-                <input matInput required [type]="hide ? 'password' : 'text'" formControlName="userName" (blur)="updateErrorMessage('userName')">
-                <button mat-icon-button matSuffix color="primary" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <input matInput required type="text" formControlName="userName" (blur)="updateErrorMessage('userName')">
+                <button mat-icon-button matSuffix color="primary" [attr.aria-pressed]="hide">
                   <mat-icon>person</mat-icon>
                 </button>
                 <mat-error *ngIf="signupForm.controls['userName'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
