@@ -16,7 +16,7 @@
 .action-button {
   position: absolute;
   right: 0;
-  visibility: hidden; /* Inicialmente oculto */
+  visibility: hidden;
   transition-property: opacity visibility;
   animation: moveButton 0.5s forwards;
 }
@@ -40,6 +40,6 @@
   color: white;
   background-color: #4cae4f;
   border-radius: 5px;
-  visibility: hidden; /* Inicialmente oculto */
+  visibility: hidden; 
   animation: moveLabel 0.5s forwards;
 }

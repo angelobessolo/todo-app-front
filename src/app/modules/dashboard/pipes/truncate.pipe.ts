@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TruncatePipe implements PipeTransform {
   transform(value: string, limit: number = 50): string {
-    if (!value) return ''; // Si el valor es nulo o indefinido, devuelve un string vacío
+    // Si el valor es nulo o indefinido, devuelve un string vacío
+    if (!value) return '';
     return value.length > limit ? value.substring(0, limit) + '...' : value;
   }
 }

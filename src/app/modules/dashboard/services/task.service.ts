@@ -10,12 +10,8 @@ import { GeneralStatus } from '../../shared/enums/general-status.enum';
 })
 export class TaskService {
   private http = inject(HttpClient);
-
   private readonly baseUrl: string = environment.baseUrl;
 
-  private userDetailSource = new BehaviorSubject<any>({});
-  userDetail$ = this.userDetailSource.asObservable();   
-  
   public generalStatus = GeneralStatus;
 
   constructor() { }

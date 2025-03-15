@@ -18,7 +18,6 @@ import { FloatButton } from '../../interfaces/float-button.interface';
 })
 export class FloatButtonComponent implements OnInit {
  
-  // Shoot action to father
   eventAction = output<FloatButton>(); 
 
   public openMenu: boolean = false;
@@ -34,10 +33,15 @@ export class FloatButtonComponent implements OnInit {
   }
 
   getButtonStyles(index: number): any {
-    const positionIncrement = 3.5; // Incremento de posición en rem
-    const basePosition = 4; // Posición base en rem
+    // Incremento de posición en rem
+    const positionIncrement = 3.5; 
+
+    // Posición base en rem
+    const basePosition = 4; 
     const bottomPosition = basePosition + index * positionIncrement;
-    const animationDelay = 0.1 * index; // Ajusta el retraso de la animación según el índice
+
+    // Ajusta el retraso de la animación según el índice
+    const animationDelay = 0.1 * index; 
 
     return {
       right: '5px',
@@ -48,10 +52,15 @@ export class FloatButtonComponent implements OnInit {
   }
 
   getLabelStyles(index: number): any {
-    const positionIncrement = 3.5; // Incremento de posición en rem
-    const basePosition = 4.5; // Posición base en rem
+    // Incremento de posición en rem
+    const positionIncrement = 3.5; 
+
+    // Posición base en rem
+    const basePosition = 4.5; 
     const bottomPosition = basePosition + index * positionIncrement;
-    const animationDelay = 0.1 * index; // Ajusta el retraso de la animación según el índice
+
+    // Ajusta el retraso de la animación según el índice
+    const animationDelay = 0.1 * index; 
 
     return {
       '--bottom-label-position': `${bottomPosition}rem`,
@@ -63,5 +72,4 @@ export class FloatButtonComponent implements OnInit {
   emitAction(action: FloatButton) {
     this.eventAction.emit(action);
   }
-
 }
