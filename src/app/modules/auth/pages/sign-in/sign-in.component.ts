@@ -1,19 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SignUp } from '../../interfaces/sign-up.interface';
 import { ToastrAlertService } from '../../../shared/services/toastr-alert/toastr-alert.service';
-
 
 @Component({
   selector: 'app-sign-in',
@@ -39,63 +34,42 @@ export class SignInComponent {
   private spinner     = inject(NgxSpinnerService);
 
   @ViewChild('container')
-  container!: ElementRef;
-
-  // faCoffee = faSackDollar;
-  public isOpen = true;
+  public container!: ElementRef;
   public rotationState = 'start';
   public animationFrame: any;
   public hide = true;
+  public errorMessage = '';
+  public flipped: boolean = false;
+  public titleShowAlert: string = '';
 
-  errorMessage = '';
-
-  flipped: boolean = false;
-
-  // Variables de formulario
+  // Variables de formulario login
   public loginForm = this.formBuilder.group({
-    // email: ['admin@gmail.com', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
     email: ['admin@gmail.com', [Validators.required]],
     password: ['admin123--', [Validators.required, Validators.minLength(8)]],
   });
 
-  // public signupForm = this.formBuilder.group({
-  //   email1: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
-  //   changePassword: ['', [Validators.required, Validators.minLength(8)]],
-  //   confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-  // });
-
+  // Variables de formulario registro
   public signupForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     userName: ['', [Validators.required]],
   });
-  
-  toggle() {
-    this.isOpen = !this.isOpen;
-  }
 
   public loopAnimation(): void {
     this.rotationState = this.rotationState === 'start' ? 'end' : 'start';
     setTimeout(() => {
       this.loopAnimation();
-    }, 500); // Same duration as the 'start => end' transition
+    }, 500);
   }
 
+  // Eliminar clase 
   public signIn() {
     this.container.nativeElement.classList.remove('right-panel-active');
   } 
 
+  // Agregar clase
   public signUp() {
     this.container.nativeElement.classList.add('right-panel-active');
-  }
-
-  public getFloatLabelValue(): string {
-    return this.loginForm.get('password')?.value || 'auto';
-  }
-
-  public clickEvent(event: MouseEvent) {
-    this.hide = !this.hide;
-    event.stopPropagation();
   }
 
   // Validaciones personalizadas del formulario
@@ -133,45 +107,20 @@ export class SignInComponent {
           this.errorMessage = '';
         }
       break;
-
-      case 'firstName':  
-        if (control.touched && fieldValue == '') {
-          this.errorMessage = `Campo debe ser diligenciado`;
-        } else if (control.touched  && fieldValue.length < 3) {
-          this.errorMessage = 'Longitud de contraseña debe ser mayor a 3 caracteres';
-          control.setErrors({ invalid: true }); // Marcar el campo como inválido
-        } else if (control.touched  && fieldValue.trim().length === 0 || fieldValue.trim().length < 3) {
-          this.errorMessage = 'Longitud de contraseña debe ser mayor a 3 caracteres';
-          control.setErrors({ invalid: true }); // Marcar el campo como inválido
-        } else {
-          this.errorMessage = '';
-        }  
-      break;
-
-      case 'lastName':  
-        if (control.touched && fieldValue == '') {
-          this.errorMessage = `Campo debe ser diligenciado`;
-        } else if (control.touched  && fieldValue.length < 3) {
-          this.errorMessage = 'Longitud de contraseña debe ser mayor a 3 caracteres';
-          control.setErrors({ invalid: true }); // Marcar el campo como inválido
-        } else if (control.touched  && fieldValue.trim().length === 0 || fieldValue.trim().length < 3) {
-          this.errorMessage = 'Longitud de contraseña debe ser mayor a 3 caracteres';
-          control.setErrors({ invalid: true }); // Marcar el campo como inválido
-        } else {
-          this.errorMessage = '';
-        }  
-      break;
     }
   }
 
+  // Getter email
   get email() {
     return this.loginForm.get('email');
   }
 
+  // Getter contraseña
   get password() {
     return this.loginForm.get('password');
   }
 
+  // Login de sesion
   public submitForm(): void{
     const {email, password} = this.loginForm.value;
 
@@ -192,13 +141,13 @@ export class SignInComponent {
             const title = 'Inicio Sesión';
             const message = response.error.message
             this.toastr.showError(title, message);
-            // this.router.navigateByUrl('/sign');
           } 
         })
       }, 500);
     } 
   }
 
+  // Registro de usuario
   public signUpSubmitForm(): void{ 
     if(this.signupForm.valid){
       this.spinner.show();
@@ -221,60 +170,26 @@ export class SignInComponent {
           // Levanta alerta de error al usuario
           error: (response) => {
             this.spinner.hide();
-            const title = 'Registro Usuario';
+            this.titleShowAlert = 'Registro Usuario';
             const message = response.error.message
-            this.toastr.showError(title, message);
+            this.toastr.showError(this.titleShowAlert, message);
           } 
         })
       }, 500);
     } 
   }
 
-  public forgetPassSubmitForm(): void{ 
-    if(this.signupForm.valid){
-      this.spinner.show();
-      setTimeout(() => { 
-        this.authService.signUp(this.signupForm.value).subscribe({
-          // Redirecciona a el dashboard si la autenticación es valida
-          next: (response) => {
-            this.spinner.hide();
-
-            // Limpia el formulario
-            this.signupForm.reset();
-
-            // Genera alerta de confirmacón
-            this.toastr.showSucces('Registro Usuario', 'Usuario Creado Exitosamente');
-
-            // Voltea la terjeta para hacer login
-            this.flipCard();
-            
-          },
-          // Levanta alerta de error al usuario
-          error: (response) => {
-            this.spinner.hide();
-            const title = 'Registro Usuario';
-            const message = response.error.message
-            this.toastr.showError(title, message);
-          } 
-        })
-      }, 500);
-    } 
-  }
-
-  // Toggle flip-flop
+  // Gira card
   flipCard() {
     this.flipped = !this.flipped;
   }
 
-  // Toggle password visibility
+  // Cambia visibilidad de contraseña
   togglePasswordVisibility() {
     this.hide = !this.hide;
   }
 
-  submitSignup() {
-    // Signup form submission logic
-  }
-
+  // Validación de espacios
   public noSpacesRequiredValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value?.trim();

@@ -6,35 +6,14 @@
 }
 
 .app-error{
-    text-align: center;
-}
-
-.app-error{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	text-align: center;
 	align-items: center;
 	gap: 1rem;
     width: 100%;
 	padding: 1rem;
-}
-
-.error-icon{
-    color: red;
-    height: 120px;
-    width: 120px;
-    font-size: 120px;
-    float: left;
-}
-
-.error-title{
-    font-size: 5rem;
-    font-weight: 900;
-    margin-bottom: 22px;
-}
-
-.error-text{
-    align-content: center;
 }
 
 .app-error{
