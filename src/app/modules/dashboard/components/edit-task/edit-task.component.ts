@@ -43,15 +43,14 @@ export class EditTaskComponent {
   @ViewChildren('formFieldRef') formFieldRefs: QueryList<MatFormField> | undefined;
   
   private formBuilder = inject(FormBuilder);
-  createTaskForm!: FormGroup;
+  public createTaskForm!: FormGroup;
   public successAlert: string = 'Actualización Tarea';
-
   public statusList: string[] = ['Pendiente', 'Completado'];
-
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
   private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
-    
+  public task!: any;
+
   readonly dateFormatString = computed(() => {
     if (this._locale() === 'es-ES') {
       return 'DD/MM/AAAA';
@@ -61,15 +60,6 @@ export class EditTaskComponent {
     return '';
   });
     
-  public documentType!: [];
-  public cordinations!: any[];
-  public task!: any;
-  flgCreateUser = false;
-  
-  selectedConcept: number | null = null;
-  customConcept: string = '';
-  isOtherConceptSelected: boolean = false;
-  
   constructor(
     private dialogRef: MatDialogRef<EditTaskComponent>,
     private adapter: DateAdapter<any>,
@@ -78,7 +68,6 @@ export class EditTaskComponent {
   ) {
     this.adapter.setLocale('es');
   }
-    
     
   ngOnInit(): void {
     this.task = this.data[0];
@@ -91,7 +80,6 @@ export class EditTaskComponent {
       createAt:    [new Date(this.task.createAt)],        
       updateAt:    [new Date(this.task.updateAt)],  
     });
-
   }
   
   ngAfterViewInit() {
@@ -103,6 +91,7 @@ export class EditTaskComponent {
     }
   }
   
+  // Setea clase para solo lectura de fields
   public setReadOnlyFields(formField: MatFormField) {
     // Verificamos que formField esté definido antes de acceder a su propiedad
     const formFieldElement = formField?._elementRef.nativeElement;
@@ -115,6 +104,7 @@ export class EditTaskComponent {
     }
   }
 
+  // Actualiza tarea
   public updateTask(): void {
     const appRoot = document.querySelector('app-root');
     if (appRoot) {
@@ -175,6 +165,7 @@ export class EditTaskComponent {
     );
   }
 
+  // Cierra modal
   closeDialog(): void {
     this.dialogRef.close({
       status: false,

@@ -58,6 +58,7 @@ export class CreateTaskComponent {
     });
   }
 
+  // Cerrar modal
   public closeDialog(): void {
     this.dialogRef.close({
       status: false,
@@ -65,6 +66,7 @@ export class CreateTaskComponent {
     });
   }
   
+  // Crear tarea
   public createTask(): void {
     const appRoot = document.querySelector('app-root');
     if (appRoot) {
