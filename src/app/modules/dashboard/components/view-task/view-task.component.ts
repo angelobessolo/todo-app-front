@@ -43,7 +43,7 @@ export class ViewTaskComponent {
   @ViewChildren('formFieldRef') formFieldRefs: QueryList<MatFormField> | undefined;
 
   private formBuilder = inject(FormBuilder);
-  createTaskForm!: FormGroup;
+  public createTaskForm!: FormGroup;
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
@@ -61,12 +61,7 @@ export class ViewTaskComponent {
   public documentType!: [];
   public cordinations!: any[];
   public task!: any;
-  flgCreateUser = false;
   
-  selectedConcept: number | null = null;
-  customConcept: string = '';
-  isOtherConceptSelected: boolean = false;
-
   constructor(
     private dialogRef: MatDialogRef<ViewTaskComponent>,
     private adapter: DateAdapter<any>,
@@ -75,7 +70,6 @@ export class ViewTaskComponent {
   ) {
     this.adapter.setLocale('es');
   }
-  
   
   ngOnInit(): void {
     this.task = this.data[0];
@@ -92,8 +86,6 @@ export class ViewTaskComponent {
   }
 
   ngAfterViewInit() {
-    // Aquí nos aseguramos de que formFieldRef esté disponible
-    // Asegurarse de que formFieldRefs tenga contenido
     if (this.formFieldRefs) {
       this.formFieldRefs.toArray().forEach(formField => {
         this.setReadOnlyFields(formField);
@@ -101,6 +93,7 @@ export class ViewTaskComponent {
     }
   }
 
+  // Setea clase de sololectura en fields de formulario
   public setReadOnlyFields(formField: MatFormField) {
     // Verificamos que formField esté definido antes de acceder a su propiedad
     const formFieldElement = formField?._elementRef.nativeElement;
@@ -109,11 +102,11 @@ export class ViewTaskComponent {
     const inputContainer = formFieldElement.querySelector('.mat-mdc-text-field-wrapper');
     
     if (inputContainer) {
-      // inputContainer.classList.remove('default-readonly-fields');
       inputContainer.classList.add('readonly-fields');
     }
   }
 
+  // Cierra modal
   closeDialog(): void {
     this.dialogRef.close({
       status: false,
