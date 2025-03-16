@@ -29,7 +29,10 @@
                 <mat-label>Usuario / Email</mat-label>
                 <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email')">
                 <mat-icon matSuffix color="primary">person</mat-icon>
-                <mat-error *ngIf="loginForm.controls['email'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                @if (loginForm.controls['email'].invalid) {
+                  <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+
+                }
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
@@ -38,7 +41,10 @@
                 <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="loginForm.controls['password'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                @if (loginForm.controls['password'].invalid) {
+                  <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+
+                }
               </mat-form-field>
             </div>
 
@@ -71,7 +77,10 @@
                 <mat-label>Email</mat-label>
                 <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email')">
                 <mat-icon matSuffix color="primary">mail</mat-icon>
-                <mat-error *ngIf="signupForm.controls['email'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                @if (signupForm.controls['email'].invalid) {
+                  <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+
+                }
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
@@ -80,7 +89,10 @@
                 <button mat-icon-button matSuffix color="primary" [attr.aria-pressed]="hide">
                   <mat-icon>person</mat-icon>
                 </button>
-                <mat-error *ngIf="signupForm.controls['userName'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                @if (signupForm.controls['userName'].invalid) {
+                  <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+
+                }
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
@@ -89,7 +101,10 @@
                 <button mat-icon-button matSuffix color="primary" (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="signupForm.controls['password'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                @if (signupForm.controls['password'].invalid) {
+                  <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+
+                }
               </mat-form-field>
             </div>
           </form>

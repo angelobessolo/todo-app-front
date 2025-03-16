@@ -17,7 +17,10 @@
                         <mat-label>Titulo</mat-label>
                         <mat-icon matPrefix>title</mat-icon>
                         <input matInput type="text" formControlName="title" (blur)="updateErrorMessage('title')">
-                        <mat-error *ngIf="createTaskForm.controls['title'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                        @if (createTaskForm.controls['title'].invalid) {
+                            <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+          
+                        }
                     </mat-form-field>
                 </div>
 
@@ -26,7 +29,9 @@
                         <mat-label>Descripción</mat-label>
                         <mat-icon matPrefix>description</mat-icon>
                         <textarea  matInput type="text" formControlName="description" (blur)="updateErrorMessage('description')"></textarea>
-                        <mat-error *ngIf="createTaskForm.controls['description'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                        @if (createTaskForm.controls['description'].invalid) {
+                            <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                        }
                     </mat-form-field>
                 </div>
             </div>
