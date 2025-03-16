@@ -50,6 +50,7 @@ export class EditTaskComponent {
   private readonly _intl = inject(MatDatepickerIntl);
   private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
   public task!: any;
+  public errorMessage: string = '';
 
   readonly dateFormatString = computed(() => {
     if (this._locale() === 'es-ES') {
@@ -171,5 +172,34 @@ export class EditTaskComponent {
       status: false,
       data: {}
     });
+  }
+
+  // Validaciones personalizadas del formulario
+  public updateErrorMessage(fieldName: string) {
+    let control = this.createTaskForm.get(fieldName);
+
+    if (!control){
+      control = this.createTaskForm.get(fieldName);
+    } 
+    
+    if(!control) return;
+
+    // Obtener el valor del campo del formulario
+    const fieldValue = control.value; 
+
+    this.errorMessage = '';
+    switch (fieldName){
+      case 'title':  
+        if (control.touched && control.hasError('required') && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
+        }
+      break;
+
+      case 'description':  
+        if (control.touched && control.hasError('required') && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
+        }
+      break;
+    }
   }
 }

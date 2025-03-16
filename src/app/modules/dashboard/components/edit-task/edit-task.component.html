@@ -16,7 +16,10 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Titulo</mat-label>
                         <mat-icon matPrefix>draw</mat-icon>
-                        <input matInput type="text" formControlName="title">
+                        <input matInput type="text" formControlName="title" (blur)="updateErrorMessage('title')">
+                        @if (createTaskForm.controls['title'].invalid) {
+                            <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -24,7 +27,10 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Descripción</mat-label>
                         <mat-icon matPrefix>draw</mat-icon>
-                        <textarea matInput type="text" formControlName="description"></textarea>
+                        <textarea matInput type="text" formControlName="description" (blur)="updateErrorMessage('description')"></textarea>
+                        @if (createTaskForm.controls['description'].invalid) {
+                            <mat-error style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
