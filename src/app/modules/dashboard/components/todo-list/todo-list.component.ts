@@ -38,7 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     NgxSpinnerModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    TruncatePipe
 ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
