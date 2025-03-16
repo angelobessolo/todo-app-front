@@ -29,7 +29,7 @@ import { ToastrAlertService } from '../../../shared/services/toastr-alert/toastr
     MatDialogActions,
     NgxSpinnerModule, 
     MatSlideToggleModule,
-  ],
+  ], 
   templateUrl: './create-task.component.html',
   styleUrl: './create-task.component.css'
 })
@@ -41,6 +41,7 @@ export class CreateTaskComponent {
   private formBuilder = inject(FormBuilder);
   public createTaskForm!: FormGroup;
   public successAlert: string = 'Creación Tarea';
+  public errorMessage: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<CreateTaskComponent>,
@@ -120,5 +121,34 @@ export class CreateTaskComponent {
     }, 
     500
     );
+  }
+
+  // Validaciones personalizadas del formulario
+  public updateErrorMessage(fieldName: string) {
+    let control = this.createTaskForm.get(fieldName);
+
+    if (!control){
+      control = this.createTaskForm.get(fieldName);
+    } 
+    
+    if(!control) return;
+
+    // Obtener el valor del campo del formulario
+    const fieldValue = control.value; 
+
+    this.errorMessage = '';
+    switch (fieldName){
+      case 'title':  
+        if (control.touched && control.hasError('required') && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
+        }
+      break;
+
+      case 'description':  
+        if (control.touched && control.hasError('required') && fieldValue == '') {
+          this.errorMessage = `Campo debe ser diligenciado`;
+        }
+      break;
+    }
   }
 }

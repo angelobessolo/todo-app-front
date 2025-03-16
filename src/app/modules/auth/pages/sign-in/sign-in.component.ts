@@ -90,10 +90,6 @@ export class SignInComponent {
       case 'email':  
         if (control.touched && control.hasError('required') && fieldValue == '') {
           this.errorMessage = `Campo debe ser diligenciado`;
-        } else if (control.touched && control.hasError('pattern')) {
-          this.errorMessage = 'Campo no cumple con el patron, debe tener una estructura: example@example.example';
-        } else {
-          this.errorMessage = '';
         }
       break;
 

@@ -29,7 +29,7 @@
                 <mat-label>Usuario / Email</mat-label>
                 <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email')">
                 <mat-icon matSuffix color="primary">person</mat-icon>
-                <mat-error *ngIf="loginForm.controls['email'].invalid" style="color: white;">{{errorMessage}}</mat-error>
+                <mat-error *ngIf="loginForm.controls['email'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
@@ -69,7 +69,7 @@
             <div class="row">
               <mat-form-field appearance="fill" class="mb-4 col-lx-12 col-lg-12 col-md-12 col-sm-12">
                 <mat-label>Email</mat-label>
-                <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email1')">
+                <input matInput required type="email" formControlName="email" (blur)="updateErrorMessage('email')">
                 <mat-icon matSuffix color="primary">mail</mat-icon>
                 <mat-error *ngIf="signupForm.controls['email'].invalid" style="color: rgb(247 0 0);">{{errorMessage}}</mat-error>
               </mat-form-field>
