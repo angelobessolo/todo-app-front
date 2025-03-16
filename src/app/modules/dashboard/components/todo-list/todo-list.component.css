@@ -31,6 +31,14 @@ width: 25%;
     text-overflow: ellipsis; 
 }
 
+.pending-value {
+    color: orange; 
+}
+
+.success-value {
+    color: green; 
+}
+
 .loader {
     --d:22px;
     width: 4px;

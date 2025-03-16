@@ -446,4 +446,13 @@ export class TodoListComponent {
       this.reloadList();
     }, 500);
   }
+
+  // Agrega clase
+  getValueClass(category: string): string {
+    if (category === 'Completado') {
+        return 'success-value';
+    } else {
+        return 'pending-value';
+    }
+  }
 }

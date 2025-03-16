@@ -45,9 +45,23 @@
                         @for (column of displayedColumns; track $index) {
                             <ng-container [matColumnDef]="column">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header  class="fixed-column"> {{ column }} </th>
-                                <td mat-cell *matCellDef="let element" class="fixed-column"> 
-                                    <ng-container> {{ getColumnValue(element, column) | truncate }}</ng-container>
+                                <td mat-cell *matCellDef="let element" class="fixed-column" [ngClass]="column === 'Estado' ? getValueClass(element.status) : ''"> 
+                                    @if (column === 'Estado'){
+                                        @if (element.status === 'Pendiente'){
+                                            <ng-container>
+                                                {{ getColumnValue(element, column) }}
+                                            </ng-container>
+                                        }@else if (element.status === 'Completado'){
+                                            <ng-container>
+                                                {{ getColumnValue(element, column) }}
+                                            </ng-container>
+                                        }
+                                    }@else {
+                                        <ng-container>{{ getColumnValue(element, column) }}</ng-container>
+                                    }  
                                 </td>
+
+                                
                             </ng-container>
                         }
                     
